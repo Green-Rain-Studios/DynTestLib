@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(DynTestLib VERSION 1.0)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Define BUILDING_DYNTESTLIB when building the library
+add_compile_definitions(BUILDING_DYNTESTLIB)
+
+# Include directories
+include_directories(include)
+
+# Create shared library
+add_library(DynTestLib SHARED
+    include/DynTestLib.h
+    include/SimpleClass.h
+    src/DynTestLib.cpp
+    src/SimpleClass.cpp
+)
+
+# Set properties to modify the output name for Windows debug builds
+if(WIN32)
+    set_target_properties(DynTestLib PROPERTIES
+        DEBUG_POSTFIX "d"  # Adds a 'd' suffix for debug builds
+    )
+endif()
